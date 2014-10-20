@@ -7,14 +7,24 @@ from socket import *
 ZombieComm radio server
 '''
 
+__author__ = "Walker Pollard, Jay Batavia"
+__version__ = "6.6.6"
+
+
+
 sound_frames = collections.deque()
-
-
 HOST = '10.0.0.54'
 PORT = 62400
 CHUNK = 1024
 
+
+
 def broadCastHandler(connectionSocket, addr):
+    
+    '''
+    Sends chunks from queue through sockets
+    '''
+    
     global sound_frames
 
     while True:
@@ -25,7 +35,13 @@ def broadCastHandler(connectionSocket, addr):
             pass
 	connectionSocket.close()
 
+
+
 def record():
+    
+    '''
+    Records audio from mic in kb chunks
+    '''
 
     global sound_frames
 
@@ -44,12 +60,16 @@ def record():
     while True:
         data = stream.read(CHUNK)
         sound_frames.append(data)
-        #print("hi")
+
+
 
 if __name__ == '__main__':
+    
     '''
-    main method simply prints recorded data right now
+    Main method handles sockets and 
+    calls record, broadcast
     '''
+    
     serverPort = PORT
     serverSocket = socket(AF_INET,SOCK_STREAM)
     serverSocket.bind((HOST,serverPort))
@@ -57,11 +77,12 @@ if __name__ == '__main__':
     
     print 'Server is recording'
     thread.start_new_thread(record, ())
-    
-    
+   
     while 1:
-        print "in while loop..."
-        connectionSocket, addr = serverSocket.accept()
-        print "Creating new thread"
-        thread.start_new_thread(broadCastHandler, (connectionSocket, addr)) 
-
+        try:
+            connectionSocket, addr = serverSocket.accept()
+            print "Creating new thread"
+            thread.start_new_thread(broadCastHandler, (connectionSocket, addr)) 
+        except:
+            print "Cannot initialize socket..."
+            break
