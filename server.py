@@ -29,12 +29,13 @@ def broadCastHandler(connectionSocket, addr):
 
     while True:
         try:
-            if len(sound_frames) > 0: 
+            if len(sound_frames) > 0 and len(sound_frames)<=20: 
                 connectionSocket.send(sound_frames.popleft())
+            elif len(sound_frames)>20:
+                sound_frames.popleft()
         except:
             pass
 	connectionSocket.close()
-
 
 
 def record():
