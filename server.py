@@ -32,8 +32,8 @@ def record():
 
 if __name__ == '__main__':
     '''
-   main method simply prints recorded data right now
-   '''
+    main method simply prints recorded data right now
+    '''
 
     t = threading.Thread(target=record)
     t.start()
