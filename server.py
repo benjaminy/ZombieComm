@@ -1,32 +1,21 @@
-# -*- coding: utf-8 -*-
+# @Project: ZombieComm
 # @Author: Walker Pollard, Jay Batavia, Evan Mega
 # @Date:   2014-10-19 21:20:00
 # @Last Modified by:   evanmega
-# @Last Modified time: 2014-10-19 22:10:20
+# @Last Modified time: 2014-10-21 08:22:37
 
 import pyaudio, collections, thread, os
 from socket import *
-
-'''
-ZombieComm radio server
-'''
-
-__version__ = "6.6.6"
-
-
 
 sound_frames = collections.deque()
 HOST = ''
 PORT = 62400
 CHUNK = 1024
 
-
-
+'''
+Sends chunks from queue through sockets
+'''
 def broadCastHandler(connectionSocket, addr):
-
-    '''
-    Sends chunks from queue through sockets
-    '''
 
     global sound_frames
 
@@ -41,11 +30,10 @@ def broadCastHandler(connectionSocket, addr):
 	connectionSocket.close()
 
 
+'''
+Records audio from mic in kb chunks
+'''
 def record():
-
-    '''
-    Records audio from mic in kb chunks
-    '''
 
     global sound_frames
 
@@ -72,12 +60,11 @@ def record():
 
 
 
+'''
+Main method handles sockets and
+calls record, broadcast
+'''
 if __name__ == '__main__':
-
-    '''
-    Main method handles sockets and
-    calls record, broadcast
-    '''
 
     serverPort = PORT
     serverSocket = socket(AF_INET,SOCK_STREAM)

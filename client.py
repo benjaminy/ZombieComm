@@ -1,19 +1,11 @@
-# -*- coding: utf-8 -*-
+# @Project: ZombieComm
 # @Author: Walker Pollard, Jay Batavia, Evan Mega
 # @Date:   2014-10-19 21:20:00
 # @Last Modified by:   evanmega
-# @Last Modified time: 2014-10-19 21:58:07
+# @Last Modified time: 2014-10-21 08:23:18
 
 import pyaudio, os
 from socket import *
-
-'''
-ZombieComm radio server
-'''
-
-__version__ = "6.6.6"
-
-
 
 CHUNK = 1024
 FORMAT = pyaudio.paInt16
